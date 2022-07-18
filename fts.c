@@ -7,6 +7,10 @@
 
 int number_of_results;
 
+/*
+ * The main data structure. This tree can hold any collection of sequences
+ * of characters, as long as each character is no more than a byte.
+ */
 struct tree_t {
   int c;
   struct tree_t *parent;
@@ -14,10 +18,18 @@ struct tree_t {
   struct tree_t *children[256];
 } tree;
 
+/*
+ * Keep track of memory that is allocated so that you can free it later.
+ */
 struct tree_t **allocation_array;
 size_t allocation_array_size = 0;
 int allocation_array_index = 0;
 
+/*
+ * Given a tree node that terminates a word, the recursive print will trace the
+ * word back to the tree root, thus printing out the entire string that the
+ * given node represents.
+ */
 int recursive_print(struct tree_t *t, int len) {
   if (t->parent) {
     len = recursive_print(t->parent, len);
@@ -26,6 +38,11 @@ int recursive_print(struct tree_t *t, int len) {
   return len + 1;
 }
 
+/*
+ * Prints out a single line representing the data in the selected tree node.
+ *
+ * Ex: blue    28      4       blue"$3,"orange"$4,"purple"$5,"green"$6...
+ */
 void report(struct tree_t *t, FILE *f) {
   for (int i = 0;; i++) {
     if (t->instances[i] == 0) {
@@ -53,6 +70,9 @@ void report(struct tree_t *t, FILE *f) {
   }
 }
 
+/*
+ * Find nodes based on a query string.
+ */
 void find(struct tree_t *t, char *str, FILE *f) {
   for (int i = 0; i < strlen(str); i++) {
     if (!t->children[(int)str[i]]) {
@@ -70,6 +90,9 @@ int main(int argc, char *argv[]) {
   char token_buffer[MAX_TOKEN_SIZE + 1];
   bzero(token_buffer, MAX_TOKEN_SIZE + 1);
 
+  /*
+   * Open the file and get its size.
+   */
   FILE *f = fopen(argv[1], "rb");
   fseek(f, 0L, SEEK_END);
   size_t file_size = ftell(f);
@@ -79,6 +102,9 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
 
+  /*
+   * Add all of the tokens in the file to the tree.
+   */
   int token_buffer_index = 0;
   size_t file_index = -1;
 
@@ -138,6 +164,11 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  /*
+   * The interactive portion of the program. This is where the user can type in
+   * search queries. The results will be printed out and the amount of time
+   * required will be reported as well.
+   */
   printf("READY\n");
   char input_buffer[256];
   while (1) {
@@ -174,6 +205,9 @@ int main(int argc, char *argv[]) {
            time_labels[count]);
   }
 
+  /*
+   * Cleanup.
+   */
   for (int i = 0; i < allocation_array_index; i++) {
     free(allocation_array[i]);
   }
