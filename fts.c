@@ -138,6 +138,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  printf("READY\n");
   char input_buffer[256];
   while (1) {
     bzero(input_buffer, 256);
