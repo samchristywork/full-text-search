@@ -7,18 +7,18 @@
 
 int number_of_results;
 
-struct _tree {
+struct tree_t {
   int c;
-  struct _tree *parent;
+  struct tree_t *parent;
   int instances[256];
-  struct _tree *children[256];
+  struct tree_t *children[256];
 } tree;
 
-struct _tree **allocation_array;
+struct tree_t **allocation_array;
 size_t allocation_array_size = 0;
 int allocation_array_index = 0;
 
-int recursive_print(struct _tree *t, int len) {
+int recursive_print(struct tree_t *t, int len) {
   if (t->parent) {
     len = recursive_print(t->parent, len);
   }
@@ -26,7 +26,7 @@ int recursive_print(struct _tree *t, int len) {
   return len + 1;
 }
 
-void report(struct _tree *t, FILE *f) {
+void report(struct tree_t *t, FILE *f) {
   for (int i = 0;; i++) {
     if (t->instances[i] == 0) {
       break;
@@ -53,7 +53,7 @@ void report(struct _tree *t, FILE *f) {
   }
 }
 
-void find(struct _tree *t, char *str, FILE *f) {
+void find(struct tree_t *t, char *str, FILE *f) {
   for (int i = 0; i < strlen(str); i++) {
     if (!t->children[(int)str[i]]) {
       return;
@@ -65,7 +65,7 @@ void find(struct _tree *t, char *str, FILE *f) {
 
 int main(int argc, char *argv[]) {
   allocation_array_size = 1;
-  allocation_array = malloc(sizeof(struct _tree *));
+  allocation_array = malloc(sizeof(struct tree_t *));
 
   char token_buffer[MAX_TOKEN_SIZE + 1];
   bzero(token_buffer, MAX_TOKEN_SIZE + 1);
@@ -106,12 +106,12 @@ int main(int argc, char *argv[]) {
     } else {
       if (token_buffer_index > 0) {
 
-        struct _tree *cur_pos = &tree;
+        struct tree_t *cur_pos = &tree;
         for (int i = 0; i < token_buffer_index; i++) {
           int c = token_buffer[i];
           if (cur_pos->children[c] == NULL) {
-            cur_pos->children[c] = malloc(sizeof(struct _tree));
-            memset(cur_pos->children[c], 0, sizeof(struct _tree));
+            cur_pos->children[c] = malloc(sizeof(struct tree_t));
+            memset(cur_pos->children[c], 0, sizeof(struct tree_t));
             cur_pos->children[c]->c = c;
             cur_pos->children[c]->parent = cur_pos;
 
@@ -119,7 +119,7 @@ int main(int argc, char *argv[]) {
               allocation_array_size *= 2;
               allocation_array =
                   realloc(allocation_array,
-                          allocation_array_size * sizeof(struct _tree *));
+                          allocation_array_size * sizeof(struct tree_t *));
             }
 
             allocation_array[allocation_array_index] = cur_pos->children[c];
