@@ -2,9 +2,9 @@ CC := gcc
 
 all: build/fts
 
-build/fts: fts.c
+build/fts: src/fts.c
 	mkdir -p build/
-	${CC} fts.c -o build/fts
+	${CC} src/fts.c -o build/fts
 
 valgrind: build/fts
 	valgrind --track-origins=yes -s ./build/fts ./test_data/colors.csv
