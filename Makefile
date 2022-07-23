@@ -7,10 +7,10 @@ build/fts: src/fts.c
 	${CC} src/fts.c -o build/fts
 
 valgrind: build/fts
-	valgrind --track-origins=yes -s ./build/fts ./test_data/colors.csv
+	valgrind --track-origins=yes -s ./build/fts ./test_data/lorem_ipsum.txt
 
 rlwrap: build/fts
-	rlwrap ./build/fts ./test_data/colors.csv
+	rlwrap ./build/fts ./test_data/lorem_ipsum.txt
 
 clean:
 	rm -rf build/
