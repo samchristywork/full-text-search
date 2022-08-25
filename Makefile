@@ -14,3 +14,5 @@ rlwrap: build/fts
 
 clean:
 	rm -rf build/
+
+.PHONY: clean rlwrap valgrind
