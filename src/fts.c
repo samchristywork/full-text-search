@@ -176,6 +176,8 @@ int main(int argc, char *argv[]) {
   printf("READY\n");
   char input_buffer[256];
   while (1) {
+    printf("Input: ");
+
     bzero(input_buffer, 256);
     int ret = scanf("%s", input_buffer);
     if (ret == -1) {
