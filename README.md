@@ -21,6 +21,15 @@ The program that I'm going to demonstrate here isn't a web server, but could
 easily be turned into one, or into a server that listens on a Unix domain
 socket, or just plain old stdin and stdout.
 
+## Features
+
+- Full text search engine written in C
+- Tree-based tokenization algorithm allows lightning fast responses even for large data sets
+- Case-insensitive queries
+- Terminal interface
+- Reports progress for large file induction
+- REPL-friendly with rlwrap
+
 ## Usage
 
 Simply invoke the program with a filename as an argument. Large files may take a
