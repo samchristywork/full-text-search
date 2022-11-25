@@ -3,6 +3,8 @@
 #include <string.h>
 #include <time.h>
 
+#include "version.h"
+
 #define MAX_TOKEN_SIZE 256
 
 int number_of_results;
@@ -84,6 +86,8 @@ void find(struct tree_t *t, char *str, FILE *f) {
 }
 
 int main(int argc, char *argv[]) {
+  printf("Initializing Full Text Search version %s\n", VERSION_STRING);
+
   allocation_array_size = 1;
   allocation_array = malloc(sizeof(struct tree_t *));
 
