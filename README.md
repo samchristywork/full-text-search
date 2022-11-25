@@ -38,6 +38,30 @@ finished tokenizing the file. Then, you can just type the term you want to find
 and hit "Enter". A list of all of the hits will be printed out, along with the
 amount of time the search query took.
 
+## Example
+
+In this example, I invoke the program with the `lorem_ipsum.txt` file as an
+argument. The program indexes this file which happens instantly so the program
+reports that it took 0.000000 seconds. The program prints `READY` to indicate
+that it has finished indexing the file. I then enter in the query "ex" which
+returns three results: "ex", "excepteur", and "exercitation". For each result,
+the program prints out the byte offset where the token was found, the length of
+the token, and eighty characters of context with dollar signs to represent
+newlines. Finally, the program prints the number of results returned and how
+long it took to process the query.
+
+```
+rlwrap ./build/fts ./test_data/lorem_ipsum.txt
+Initializing Full Text Search version 1.0.0
+0.000000
+READY
+Input: ex
+ex              209     2       ex ea commodo consequat.$Duis aute irure dolor in reprehenderit in voluptate vel
+excepteur       344     9       Excepteur sint occaecat cupidatat non proident, sunt in$culpa qui officia deseru
+exercitation    174     12      exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.$Duis aute
+Found 3 results in 262.407000 microseconds.
+```
+
 ## Dependencies
 
 ```
