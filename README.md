@@ -1,4 +1,4 @@
-![Banner](https://s-christy.com/status-banner-service/full-text-search/banner-slim.svg)
+![Banner](https://s-christy.com/sbs/status-banner.svg?icon=action/abc&hue=100&title=Full%20Text%20Search&description=This%20is%20much%20faster%20than%20grepping%21)
 
 ## Overview
 
